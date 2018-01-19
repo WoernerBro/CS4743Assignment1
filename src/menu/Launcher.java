@@ -1,4 +1,4 @@
-package app;
+package menu;
 
 public class Launcher {
 
