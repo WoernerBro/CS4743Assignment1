@@ -50,7 +50,7 @@ public class MenuController implements Initializable {
 		this.rootPane = rootPane;
 	}
 	
-	@FXML private void handleMenuAction(ActionEvent event) throws IOException {
+	@FXML void handleMenuAction(ActionEvent event) throws IOException {
 		logger.info("calling handleMenuAction()");
 		
 		if(event.getSource() == menuItemAuthorList) {
@@ -59,7 +59,7 @@ public class MenuController implements Initializable {
 			Platform.exit();
 	}
 	
-	void loadAuthorList() {
+	public void loadAuthorList() {
 		logger.info("calling loadAuthorList()");
 		
 		AuthorListController controller = new AuthorListController();
@@ -71,7 +71,7 @@ public class MenuController implements Initializable {
 		changeView(loader);
 	}
 	
-	void changeView(FXMLLoader loader) {
+	public void changeView(FXMLLoader loader) {
 		logger.info("calling changeView()");
 		
 		try {

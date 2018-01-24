@@ -72,23 +72,23 @@ public class Author {
 		this.authorWebsite.set(authorWebsite);
 	}
 	
-	public SimpleStringProperty authorFirstName() {
+	public SimpleStringProperty authorFirstNameProperty() {
 		return authorFirstName;
 	}
 	
-	public SimpleStringProperty authorLastName() {
+	public SimpleStringProperty authorLastNameProperty() {
 		return authorLastName;
 	}
 	
-	public SimpleStringProperty authorDOB() {
+	public SimpleStringProperty authorDOBProperty() {
 		return authorDOB;
 	}
 	
-	public SimpleStringProperty authorGender() {
+	public SimpleStringProperty authorGenderProperty() {
 		return authorGender;
 	}
 	
-	public SimpleStringProperty authorWebsite() {
+	public SimpleStringProperty authorWebsiteProperty() {
 		return authorWebsite;
 	}
 	

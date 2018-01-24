@@ -24,7 +24,7 @@ public class Launcher extends Application {
 		
 		Scene scene = new Scene(rootNode, 600, 400);
 		stage.setScene(scene);
-		stage.setTitle("Menu");
+		stage.setTitle("Library Archive");
 		stage.show();
 		
 	}
