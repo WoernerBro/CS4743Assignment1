@@ -1,7 +1,7 @@
-package menu;
+package app;
 
 /*
- * CS 4743 Assignment 1 by Sean Woerner and DeMarcus Kennedy
+ * CS 4743 Assignment 2 by Sean Woerner and DeMarcus Kennedy
  */
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import menu.MenuController;
 
 public class Launcher extends Application {
 	private static Logger logger = LogManager.getLogger();
@@ -20,7 +21,7 @@ public class Launcher extends Application {
 	public void start(Stage stage) throws Exception {
 		logger.info("calling start()");
 
-		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("MenuView.fxml"));
+		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../menu/MenuView.fxml"));
 		
 		MenuController controller = MenuController.getInstanceOfMenuController();
 		loader.setController(controller);
@@ -30,7 +31,6 @@ public class Launcher extends Application {
 		stage.setScene(scene);
 		stage.setTitle("Library Archive");
 		stage.show();
-		
 	}
 
 	@Override
