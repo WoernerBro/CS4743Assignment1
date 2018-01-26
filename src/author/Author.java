@@ -17,10 +17,8 @@ public class Author {
 		authorWebsite = new SimpleStringProperty();
 	}
 	
-	public Author(String authorFirstName, String authorLastName, String authorDOB, 
-			String authorGender, String authorWebsite) {
+	public Author(String authorFirstName, String authorLastName, String authorDOB, String authorGender, String authorWebsite) {
 		this();
-		
 		this.authorFirstName.set(authorFirstName);
 		this.authorLastName.set(authorLastName);
 		this.authorDOB.set(authorDOB);

@@ -53,9 +53,9 @@ public class MenuController implements Initializable {
 	@FXML void handleMenuAction(ActionEvent event) throws IOException {
 		logger.info("calling handleMenuAction()");
 		
-		if(event.getSource() == menuItemAuthorList) {
+		if(event.getSource() == menuItemAuthorList)
 			loadAuthorList();
-		} else if(event.getSource() == menuItemExit)
+		else if(event.getSource() == menuItemExit)
 			Platform.exit();
 	}
 	
