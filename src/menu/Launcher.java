@@ -1,5 +1,9 @@
 package menu;
 
+/*
+ * CS 4743 Assignment 1 by Sean Woerner and DeMarcus Kennedy
+ */
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
