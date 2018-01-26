@@ -1,24 +1,30 @@
 package author;
 
+import java.time.LocalDate;
+
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Author {
+	private int authorID;
 	private SimpleStringProperty authorFirstName;
 	private SimpleStringProperty authorLastName;
-	private SimpleStringProperty authorDOB;
+	private SimpleObjectProperty<LocalDate> authorDOB;
 	private SimpleStringProperty authorGender;
 	private SimpleStringProperty authorWebsite;
 	
 	public Author() {
+		authorID = -1;
 		authorFirstName = new SimpleStringProperty();
 		authorLastName = new SimpleStringProperty();
-		authorDOB = new SimpleStringProperty();
+		authorDOB = new SimpleObjectProperty<LocalDate>();
 		authorGender = new SimpleStringProperty();
 		authorWebsite = new SimpleStringProperty();
 	}
 	
-	public Author(String authorFirstName, String authorLastName, String authorDOB, String authorGender, String authorWebsite) {
+	public Author(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite) {
 		this();
+		this.authorID = authorID;
 		this.authorFirstName.set(authorFirstName);
 		this.authorLastName.set(authorLastName);
 		this.authorDOB.set(authorDOB);
@@ -27,7 +33,15 @@ public class Author {
 	}
 	
 	public String toString() {
-		return getAuthorFirstName() + " " + getAuthorLastName();
+		return authorID + "\t" + getAuthorFirstName() + " " + getAuthorLastName();
+	}
+	
+	public int getAuthorID() {
+		return authorID;
+	}
+	
+	public void setAuthorID(int authorID) {
+		this.authorID = authorID;
 	}
 	
 	public String getAuthorFirstName() {
@@ -46,11 +60,11 @@ public class Author {
 		this.authorLastName.set(authorLastName);
 	}
 	
-	public String getAuthorDOB() {
+	public LocalDate getAuthorDOB() {
 		return authorDOB.get();
 	}
 	
-	public void setAuthorDOB(String authorDOB) {
+	public void setAuthorDOB(LocalDate authorDOB) {
 		this.authorDOB.set(authorDOB);
 	}
 	
@@ -78,7 +92,7 @@ public class Author {
 		return authorLastName;
 	}
 	
-	public SimpleStringProperty authorDOBProperty() {
+	public SimpleObjectProperty<LocalDate> authorDOBProperty() {
 		return authorDOB;
 	}
 	

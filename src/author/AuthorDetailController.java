@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import menu.MenuController;
 
@@ -19,7 +20,7 @@ public class AuthorDetailController implements Initializable {
 	
 	@FXML private TextField textFieldAuthorFirstName;
 	@FXML private TextField textFieldAuthorLastName;
-	@FXML private TextField textFieldAuthorDOB;
+	@FXML private DatePicker textFieldAuthorDOB;
 	@FXML private TextField textFieldAuthorGender;
 	@FXML private TextField textFieldAuthorWebsite;
 	@FXML private Button saveAuthorDetailButton;
@@ -45,7 +46,7 @@ public class AuthorDetailController implements Initializable {
 		
 		textFieldAuthorFirstName.textProperty().bindBidirectional(author.authorFirstNameProperty());
 		textFieldAuthorLastName.textProperty().bindBidirectional(author.authorLastNameProperty());
-		textFieldAuthorDOB.textProperty().bindBidirectional(author.authorDOBProperty());
+		textFieldAuthorDOB.valueProperty().bindBidirectional(author.authorDOBProperty());
 		textFieldAuthorGender.textProperty().bindBidirectional(author.authorGenderProperty());
 		textFieldAuthorWebsite.textProperty().bindBidirectional(author.authorWebsiteProperty());
 	}

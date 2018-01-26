@@ -1,6 +1,7 @@
 package author;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,9 +29,9 @@ public class AuthorListController implements Initializable {
 		
 		listViewAuthors = new ListView<Author>();
 		listData = FXCollections.observableArrayList (
-			    new Author("Ernest", "Cline", "3/29/1972", "Male", "www.ernestcline.com"),
-			    new Author("Robert Anthony", "Salvatore", "1/20/1959", "Male", "www.rasalvatore.com"),
-			    new Author("Richard", "Riordan", "6/5/1964", "Male", "www.rickriordan.com"));
+			    new Author(1, "Ernest", "Cline", new LocalDate(1972,3,29), "Male", "www.ernestcline.com"),
+			    new Author(2, "Robert Anthony", "Salvatore", new LocalDate(1959,1,20), "Male", "www.rasalvatore.com"),
+			    new Author(3, "Richard", "Riordan", new LocalDate(1964,6,5), "Male", "www.rickriordan.com"));
 	}
 	
 	@Override

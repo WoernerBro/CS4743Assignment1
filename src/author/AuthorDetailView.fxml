@@ -88,17 +88,14 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="textFieldAuthorDOB" editable="false" nodeOrientation="LEFT_TO_RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
+            <DatePicker fx:id="datePickerAuthorDOB">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
-            </TextField>
+               <padding>
+                  <Insets bottom="2.5" top="2.5" />
+               </padding>
+            </DatePicker>
             <TextField fx:id="textFieldAuthorGender" editable="false" nodeOrientation="LEFT_TO_RIGHT">
                <font>
                   <Font size="14.0" />
