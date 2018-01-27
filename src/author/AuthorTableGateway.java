@@ -27,10 +27,12 @@ public class AuthorTableGateway {
 		List<Author> authors = new ArrayList<Author>();
 		
 		try {
+			//TODO: Needs to be parameterized
 			String query = "SELECT * FROM authorTable";
 			st = menuController.getDBConnection().prepareStatement(query);
 			rs = st.executeQuery();
 			
+			//TODO: Doesn't account for blanks or validation problems
 			while(rs.next()) {
 				authors.add(new Author(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getDate("dob").toLocalDate(), rs.getString("gender"), rs.getString("web_site")));
 			}
