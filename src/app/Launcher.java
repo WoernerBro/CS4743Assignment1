@@ -3,7 +3,6 @@ package app;
 /*
  * CS 4743 Assignment 2 by Sean Woerner and DeMarcus Kennedy
  */
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +35,8 @@ public class Launcher extends Application {
 	@Override
 	public void stop() throws Exception {
 		logger.info("calling stop()");
-
+		
+		MenuController.getInstanceOfMenuController().getDBConnection().close();
 		super.stop();
 	}
 
@@ -46,7 +46,7 @@ public class Launcher extends Application {
 
 		super.init();
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

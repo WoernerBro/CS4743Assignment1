@@ -1,13 +1,11 @@
 package author;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,14 +22,11 @@ public class AuthorListController implements Initializable {
 	@FXML private ListView<Author> listViewAuthors;
 	private ObservableList<Author> listData;
 	
-	public AuthorListController() {
+	public AuthorListController(ObservableList<Author> authors) {
 		menuController = MenuController.getInstanceOfMenuController();
 		
 		listViewAuthors = new ListView<Author>();
-		listData = FXCollections.observableArrayList (
-			    new Author(1, "Ernest", "Cline", LocalDate.of(1972,3,29), "Male", "www.ernestcline.com"),
-			    new Author(2, "Robert Anthony", "Salvatore", LocalDate.of(1959,1,20), "Male", "www.rasalvatore.com"),
-			    new Author(3, "Richard", "Riordan", LocalDate.of(1964,6,5), "Male", "www.rickriordan.com"));
+		listData = authors;
 	}
 	
 	@Override
