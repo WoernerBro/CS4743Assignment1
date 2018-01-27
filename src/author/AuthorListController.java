@@ -29,9 +29,9 @@ public class AuthorListController implements Initializable {
 		
 		listViewAuthors = new ListView<Author>();
 		listData = FXCollections.observableArrayList (
-			    new Author(1, "Ernest", "Cline", new LocalDate(1972,3,29), "Male", "www.ernestcline.com"),
-			    new Author(2, "Robert Anthony", "Salvatore", new LocalDate(1959,1,20), "Male", "www.rasalvatore.com"),
-			    new Author(3, "Richard", "Riordan", new LocalDate(1964,6,5), "Male", "www.rickriordan.com"));
+			    new Author(1, "Ernest", "Cline", LocalDate.of(1972,3,29), "Male", "www.ernestcline.com"),
+			    new Author(2, "Robert Anthony", "Salvatore", LocalDate.of(1959,1,20), "Male", "www.rasalvatore.com"),
+			    new Author(3, "Richard", "Riordan", LocalDate.of(1964,6,5), "Male", "www.rickriordan.com"));
 	}
 	
 	@Override

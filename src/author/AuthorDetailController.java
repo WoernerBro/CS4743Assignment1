@@ -20,7 +20,7 @@ public class AuthorDetailController implements Initializable {
 	
 	@FXML private TextField textFieldAuthorFirstName;
 	@FXML private TextField textFieldAuthorLastName;
-	@FXML private DatePicker textFieldAuthorDOB;
+	@FXML private DatePicker datePickerAuthorDOB;
 	@FXML private TextField textFieldAuthorGender;
 	@FXML private TextField textFieldAuthorWebsite;
 	@FXML private Button saveAuthorDetailButton;
@@ -46,7 +46,7 @@ public class AuthorDetailController implements Initializable {
 		
 		textFieldAuthorFirstName.textProperty().bindBidirectional(author.authorFirstNameProperty());
 		textFieldAuthorLastName.textProperty().bindBidirectional(author.authorLastNameProperty());
-		textFieldAuthorDOB.valueProperty().bindBidirectional(author.authorDOBProperty());
+		datePickerAuthorDOB.valueProperty().bindBidirectional(author.authorDOBProperty());
 		textFieldAuthorGender.textProperty().bindBidirectional(author.authorGenderProperty());
 		textFieldAuthorWebsite.textProperty().bindBidirectional(author.authorWebsiteProperty());
 	}
