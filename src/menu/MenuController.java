@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
+import author.Author;
+import author.AuthorDetailController;
 import author.AuthorListController;
 import author.AuthorTableGateway;
 
@@ -34,6 +36,7 @@ public class MenuController implements Initializable {
 	
 	@FXML private MenuBar menuBar;
 	@FXML private MenuItem menuItemAuthorList;
+	@FXML private MenuItem menuItemAddAuthor;
 	@FXML private MenuItem menuItemExit;
 	@FXML private BorderPane rootPane;
 	
@@ -79,6 +82,8 @@ public class MenuController implements Initializable {
 		
 		if(event.getSource() == menuItemAuthorList)
 			loadAuthorList();
+		else if(event.getSource() == menuItemAddAuthor)
+			loadAuthorDetail(new Author());
 		else if(event.getSource() == menuItemExit)
 			Platform.exit();
 	}
@@ -88,6 +93,18 @@ public class MenuController implements Initializable {
 		
 		AuthorListController controller = new AuthorListController(FXCollections.observableArrayList(new AuthorTableGateway().getAuthors()));
 		URL fxmlFile = this.getClass().getResource("../author/AuthorListView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		
+		changeView(loader);
+	}
+	
+	public void loadAuthorDetail(Author author) {
+		logger.info("calling loadAuthorDetail()");
+		
+		AuthorDetailController controller = new AuthorDetailController(author);
+		URL fxmlFile = this.getClass().getResource("../author/AuthorDetailView.fxml");
 		FXMLLoader loader = new FXMLLoader(fxmlFile);
 		
 		loader.setController(controller);

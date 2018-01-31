@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -41,21 +40,11 @@ public class AuthorListController implements Initializable {
 		        if (click.getClickCount() == 2) {
 		        	logger.info("double-click on " + listViewAuthors.getSelectionModel().getSelectedItem());
 		           
-		        	loadAuthorDetail(listViewAuthors.getSelectionModel().getSelectedItem());
+		        	menuController.loadAuthorDetail(listViewAuthors.getSelectionModel().getSelectedItem());
 		        }
 		    }
 		});
 	}
 	
-	public void loadAuthorDetail(Author author) {
-		logger.info("calling loadAuthorDetail()");
-		
-		AuthorDetailController controller = new AuthorDetailController(author);
-		URL fxmlFile = this.getClass().getResource("../author/AuthorDetailView.fxml");
-		FXMLLoader loader = new FXMLLoader(fxmlFile);
-		
-		loader.setController(controller);
-		
-		menuController.changeView(loader);
-	}
+	
 }

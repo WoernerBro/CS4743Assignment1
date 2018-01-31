@@ -45,24 +45,16 @@ public class AuthorDetailController implements Initializable {
 			logger.info(invalid);
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Invalid Input");
-			alert.setHeaderText(invalid.toString());
-			alert.setContentText("Please input valid data.");
+			if (invalid.toString().contains("SQL")) {
+				alert.setTitle("SQL Error");
+				alert.setHeaderText("There was a problem updating the database.");
+				alert.setContentText(invalid.toString());
+			} else {
+				alert.setTitle("Invalid Input");
+				alert.setHeaderText("Please input valid data.");
+				alert.setContentText(invalid.toString());
+			}
 			alert.showAndWait();
-			return;
-		}
-		
-		try {
-			new AuthorTableGateway().updateAuthor(author);
-		} catch (Throwable e) {
-			logger.info(e);
-			
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("SQL Error");
-			alert.setHeaderText(e.toString());
-			alert.setContentText("There was a problem updating the database.");
-			alert.showAndWait();
-			return;
 		}
 	}
 	

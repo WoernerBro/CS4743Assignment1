@@ -17,8 +17,10 @@
 		<menus>
 		<Menu text="Options">
          <items>
+            <SeparatorMenuItem text="Authors" />
             <MenuItem fx:id="menuItemAuthorList" onAction="#handleMenuAction" text="Author List" />
-            <SeparatorMenuItem />
+                  <MenuItem fx:id="menuItemAddAuthor" onAction="#handleMenuAction" text="Add Author" />
+                  <SeparatorMenuItem text="System" />
             <MenuItem fx:id="menuItemExit" onAction="#handleMenuAction" text="Exit" />
          </items>
 		</Menu>
