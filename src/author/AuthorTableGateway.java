@@ -121,4 +121,36 @@ public class AuthorTableGateway {
 			}
 		}
 	}
+	
+	public void deleteAuthor(Author author) throws SQLException {
+		logger.info("calling deleteAuthor()");
+		
+		PreparedStatement st = null;
+		
+		try {
+			String query = "DELETE FROM authorTable WHERE id=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, author.getAuthorID());
+			st.executeUpdate();
+			st.close();
+			
+			query = "ALTER TABLE authorTable AUTO_INCREMENT=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, author.getAuthorID());
+			st.executeUpdate();
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in deleteAuthor(");
+			
+			throw sqlError;
+		} finally {
+			try {
+				if(st != null)
+					st.close();
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in deleteAuthor()");
+				
+				throw sqlError;
+			}
+		}
+	}
 }
