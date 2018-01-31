@@ -66,7 +66,7 @@
       </VBox>
       <VBox>
          <children>
-            <TextField fx:id="textFieldAuthorFirstName" editable="false" nodeOrientation="LEFT_TO_RIGHT">
+            <TextField fx:id="textFieldAuthorFirstName" nodeOrientation="LEFT_TO_RIGHT">
                <font>
                   <Font size="14.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="textFieldAuthorLastName" editable="false" nodeOrientation="LEFT_TO_RIGHT">
+            <TextField fx:id="textFieldAuthorLastName" nodeOrientation="LEFT_TO_RIGHT">
                <font>
                   <Font size="14.0" />
                </font>
@@ -88,12 +88,12 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <DatePicker fx:id="datePickerAuthorDOB" editable="false" prefHeight="30.0" prefWidth="160.0">
+            <DatePicker fx:id="datePickerAuthorDOB" prefHeight="30.0" prefWidth="160.0">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </DatePicker>
-            <TextField fx:id="textFieldAuthorGender" editable="false" nodeOrientation="LEFT_TO_RIGHT">
+            <TextField fx:id="textFieldAuthorGender" nodeOrientation="LEFT_TO_RIGHT">
                <font>
                   <Font size="14.0" />
                </font>
@@ -104,7 +104,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="textFieldAuthorWebsite" editable="false" nodeOrientation="LEFT_TO_RIGHT">
+            <TextField fx:id="textFieldAuthorWebsite" nodeOrientation="LEFT_TO_RIGHT">
                <font>
                   <Font size="14.0" />
                </font>

@@ -2,10 +2,15 @@ package author;
 
 import java.time.LocalDate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Author {
+	private static Logger logger = LogManager.getLogger();
+	
 	private int authorID;
 	private SimpleStringProperty authorFirstName;
 	private SimpleStringProperty authorLastName;
@@ -35,6 +40,72 @@ public class Author {
 	public String toString() {
 		return authorID + "\t" + getAuthorFirstName() + " " + getAuthorLastName();
 	}
+	
+	public void saveAuthor(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite) throws Throwable {
+		try {
+			if (!validateAuthorID(authorID)) throw new Exception("Invalid Author ID");
+			if (!validateAuthorFirstName(authorFirstName)) throw new Exception("Invalid Author First Name");
+			if (!validateAuthorLastName(authorLastName)) throw new Exception("Invalid Author Last Name");
+			if (!validateAuthorDOB(authorDOB)) throw new Exception("Invalid Author Date of Birth");
+			if (!validateAuthorGender(authorGender)) throw new Exception("Invalid Author Gender");
+			if (!validateAuthorWebsite(authorWebsite)) throw new Exception("Invalid Author Website");
+		} catch (Exception invalid) {
+			logger.info("saveAuthor() failed");
+			
+			throw invalid;
+		}
+		
+		setAuthorID(authorID);
+		setAuthorFirstName(authorFirstName);
+		setAuthorLastName(authorLastName);
+		setAuthorDOB(authorDOB);
+		setAuthorGender(authorGender);
+		setAuthorWebsite(authorWebsite);
+		
+		logger.info("saved author: " + toString());
+	}
+	
+	//Validators
+	
+	public boolean validateAuthorID(int id) {
+		if (id < 0)
+			return false;
+		return true;
+	}
+	
+	public boolean validateAuthorFirstName(String authorFirstName) {
+		if (authorFirstName.length() < 1 || authorFirstName.length() > 100)
+			return false;
+		return true;
+	}
+	
+	public boolean validateAuthorLastName(String authorLastName) {
+		if (authorLastName.length() < 1 || authorLastName.length() > 100)
+			return false;
+		return true;
+	}
+	
+	public boolean validateAuthorDOB(LocalDate authorDOB) {
+		if (authorDOB.isBefore(LocalDate.now()))
+			return true;
+		return false;
+	}
+	
+	public boolean validateAuthorGender(String authorGender) {
+		if (authorGender.startsWith("m") || authorGender.startsWith("M") || 
+				authorGender.startsWith("f") || authorGender.startsWith("F") || 
+				authorGender.startsWith("u") || authorGender.startsWith("U"))
+			return true;
+		return false;
+	}
+	
+	public boolean validateAuthorWebsite(String authorWebsite) {
+		if (authorWebsite.length() > 100)
+			return false;
+		return true;
+	}
+	
+	//Accessors
 	
 	public int getAuthorID() {
 		return authorID;
@@ -83,6 +154,8 @@ public class Author {
 	public void setAuthorWebsite(String authorWebsite) {
 		this.authorWebsite.set(authorWebsite);
 	}
+	
+	//Direct Getters
 	
 	public SimpleStringProperty authorFirstNameProperty() {
 		return authorFirstName;

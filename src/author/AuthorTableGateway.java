@@ -1,5 +1,6 @@
 package author;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,5 +49,37 @@ public class AuthorTableGateway {
 		}
 		
 		return authors;
+	}
+	
+	public void updateAuthor(Author author) throws Throwable {
+		logger.info("calling updateAuthor()");
+		
+		PreparedStatement st = null;
+		
+		try {
+			String query = "UPDATE authorTable SET id=?,first_name=?,last_name=?,dob=?,gender=?,web_site=? WHERE id=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, author.getAuthorID());
+			st.setString(2, author.getAuthorFirstName());
+			st.setString(3, author.getAuthorLastName());
+			st.setDate(4, Date.valueOf(author.getAuthorDOB()));
+			st.setString(5, author.getAuthorGender());
+			st.setString(6, author.getAuthorWebsite());
+			st.setInt(7, author.getAuthorID());
+			st.executeUpdate();
+		} catch (SQLException e) {
+			logger.info("try/catch SQLException in updateAuthor(");
+			
+			throw e;
+		} finally {
+			try {
+				if(st != null)
+					st.close();
+			} catch (SQLException e) {
+				logger.info("try/catch/finally SQLException in updateAuthor()");
+				
+				throw e;
+			}
+		}
 	}
 }
