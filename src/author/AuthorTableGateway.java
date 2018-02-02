@@ -132,12 +132,6 @@ public class AuthorTableGateway {
 			st = menuController.getDBConnection().prepareStatement(query);
 			st.setInt(1, author.getAuthorID());
 			st.executeUpdate();
-			st.close();
-			
-			query = "ALTER TABLE authorTable AUTO_INCREMENT=?";
-			st = menuController.getDBConnection().prepareStatement(query);
-			st.setInt(1, author.getAuthorID());
-			st.executeUpdate();
 		} catch (SQLException sqlError) {
 			logger.info("try/catch SQLException in deleteAuthor(");
 			
