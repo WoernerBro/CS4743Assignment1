@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
+import app.Launcher;
 import author.Author;
 import author.AuthorDetailController;
 import author.AuthorListController;
@@ -97,6 +98,7 @@ public class MenuController implements Initializable {
 		
 		loader.setController(controller);
 		
+		Launcher.stage.setTitle("Author List");
 		changeView(loader);
 	}
 	
@@ -109,6 +111,10 @@ public class MenuController implements Initializable {
 		
 		loader.setController(controller);
 		
+		if (author.getAuthorID() == 0)
+			Launcher.stage.setTitle("Add New Author");
+		else
+			Launcher.stage.setTitle("Edit Author");
 		changeView(loader);
 	}
 	

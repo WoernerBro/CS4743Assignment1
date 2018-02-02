@@ -15,10 +15,13 @@ import menu.MenuController;
 
 public class Launcher extends Application {
 	private static Logger logger = LogManager.getLogger();
+	public static Stage stage;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		logger.info("calling start()");
+		
+		Launcher.stage = stage;
 
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../menu/MenuView.fxml"));
 		

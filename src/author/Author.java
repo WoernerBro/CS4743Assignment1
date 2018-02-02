@@ -20,11 +20,11 @@ public class Author {
 	private SimpleStringProperty authorWebsite;
 	
 	public Author() {
-		authorID = -1;
-		authorFirstName = new SimpleStringProperty();
-		authorLastName = new SimpleStringProperty();
-		authorDOB = new SimpleObjectProperty<LocalDate>();
-		authorGender = new SimpleStringProperty();
+		authorID = 0;
+		authorFirstName = new SimpleStringProperty("");
+		authorLastName = new SimpleStringProperty("");
+		authorDOB = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+		authorGender = new SimpleStringProperty("");
 		authorWebsite = new SimpleStringProperty("");
 	}
 	
@@ -43,7 +43,27 @@ public class Author {
 	}
 	
 	public void saveAuthor(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite) throws Throwable {
-		if (authorID == -1) {
+		try {
+			if (!validateAuthorID(authorID)) throw new Exception("ID must be positive");
+			if (!validateAuthorFirstName(authorFirstName)) throw new Exception("First name must have a length of 1-100");
+			if (!validateAuthorLastName(authorLastName)) throw new Exception("Last name must have a length of 1-100");
+			if (!validateAuthorDOB(authorDOB)) throw new Exception("Date of birth must be before today's date");
+			if (!validateAuthorGender(authorGender)) throw new Exception("Gender must be \"Male\", \"Female\", or \"Unknown\"");
+			if (!validateAuthorWebsite(authorWebsite)) throw new Exception("Website must have a length of 0-100");
+		} catch (Exception invalid) {
+			logger.info("saveAuthor() failed");
+			
+			throw invalid;
+		}
+		
+		setAuthorID(authorID);
+		setAuthorFirstName(authorFirstName);
+		setAuthorLastName(authorLastName);
+		setAuthorDOB(authorDOB);
+		setAuthorGender(authorGender);
+		setAuthorWebsite(authorWebsite);
+		
+		if (authorID == 0) {
 			try {
 				setAuthorID(new AuthorTableGateway().insertAuthor(this));
 			} catch (SQLException sqlError) {
@@ -52,26 +72,6 @@ public class Author {
 				throw sqlError;
 			}
 		} else {
-			try {
-				if (!validateAuthorID(authorID)) throw new Exception("ID must be positive");
-				if (!validateAuthorFirstName(authorFirstName)) throw new Exception("First name must have a length of 1-100");
-				if (!validateAuthorLastName(authorLastName)) throw new Exception("Last name must have a length of 1-100");
-				if (!validateAuthorDOB(authorDOB)) throw new Exception("Date of birth must be before today's date");
-				if (!validateAuthorGender(authorGender)) throw new Exception("Gender must be \"Male\", \"Female\", or \"Unknown\"");
-				if (!validateAuthorWebsite(authorWebsite)) throw new Exception("Website must have a length of 0-100");
-			} catch (Exception invalid) {
-				logger.info("saveAuthor() failed");
-				
-				throw invalid;
-			}
-			
-			setAuthorID(authorID);
-			setAuthorFirstName(authorFirstName);
-			setAuthorLastName(authorLastName);
-			setAuthorDOB(authorDOB);
-			setAuthorGender(authorGender);
-			setAuthorWebsite(authorWebsite);
-			
 			try {
 				new AuthorTableGateway().updateAuthor(this);
 			} catch (SQLException sqlError) {
