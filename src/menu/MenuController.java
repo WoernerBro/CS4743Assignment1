@@ -10,6 +10,11 @@ import author.Author;
 import author.AuthorDetailController;
 import author.AuthorListController;
 import author.AuthorTableGateway;
+import book.Book;
+import book.BookDetailController;
+import book.BookListController;
+import book.BookTableGateway;
+import book.PublisherTableGateway;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,6 +43,8 @@ public class MenuController implements Initializable {
 	@FXML private MenuBar menuBar;
 	@FXML private MenuItem menuItemAuthorList;
 	@FXML private MenuItem menuItemAddAuthor;
+	@FXML private MenuItem menuItemBookList;
+	@FXML private MenuItem menuItemAddBook;
 	@FXML private MenuItem menuItemExit;
 	@FXML private BorderPane rootPane;
 	
@@ -85,6 +92,10 @@ public class MenuController implements Initializable {
 			loadAuthorList();
 		else if(event.getSource() == menuItemAddAuthor)
 			loadAuthorDetail(new Author());
+		else if(event.getSource() == menuItemBookList)
+			loadBookList();
+		else if(event.getSource() == menuItemAddBook)
+			loadBookDetail(new Book());
 		else if(event.getSource() == menuItemExit)
 			Platform.exit();
 	}
@@ -115,6 +126,35 @@ public class MenuController implements Initializable {
 			Launcher.stage.setTitle("Add New Author");
 		else
 			Launcher.stage.setTitle("Edit Author");
+		changeView(loader);
+	}
+	
+	public void loadBookList() {
+		logger.info("calling loadBookList()");
+		
+		BookListController controller = new BookListController(FXCollections.observableArrayList(new BookTableGateway().getBooks()));
+		URL fxmlFile = this.getClass().getResource("../book/BookListView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		
+		Launcher.stage.setTitle("Book List");
+		changeView(loader);
+	}
+	
+	public void loadBookDetail(Book book) {
+		logger.info("calling loadBookDetail()");
+		
+		BookDetailController controller = new BookDetailController(book, new PublisherTableGateway().getPublishers());
+		URL fxmlFile = this.getClass().getResource("../book/BookDetailView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		
+		if (book.getBookID() == 0)
+			Launcher.stage.setTitle("Add New Book");
+		else
+			Launcher.stage.setTitle("Edit Book");
 		changeView(loader);
 	}
 	

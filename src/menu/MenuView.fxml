@@ -20,6 +20,9 @@
             <SeparatorMenuItem text="Authors" />
             <MenuItem fx:id="menuItemAuthorList" onAction="#handleMenuAction" text="Author List" />
                   <MenuItem fx:id="menuItemAddAuthor" onAction="#handleMenuAction" text="Add Author" />
+                  <SeparatorMenuItem text="Books" />
+                  <MenuItem fx:id="menuItemBookList" onAction="#handleMenuAction" text="Book List" />
+                  <MenuItem fx:id="menuItemAddBook" onAction="#handleMenuAction" text="Add Book" />
                   <SeparatorMenuItem text="System" />
             <MenuItem fx:id="menuItemExit" onAction="#handleMenuAction" text="Exit" />
          </items>
