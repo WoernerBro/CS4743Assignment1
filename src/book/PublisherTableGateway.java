@@ -35,7 +35,7 @@ public class PublisherTableGateway {
 				publishers.add(new Publisher(rs.getInt("id"), rs.getString("publisher_name")));
 			}
 		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getPublishers(");
+			logger.info("try/catch SQLException in getPublishers()");
 		} finally {
 			try {
 				if(rs != null)
@@ -67,7 +67,7 @@ public class PublisherTableGateway {
 				publisher = new Publisher(rs.getInt("id"), rs.getString("publisher_name"));
 			}
 		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getPublisherByID(");
+			logger.info("try/catch SQLException in getPublisherByID()");
 		} finally {
 			try {
 				if(rs != null)

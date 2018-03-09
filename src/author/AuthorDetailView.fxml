@@ -51,7 +51,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="saveAuthorDetailButton" mnemonicParsing="false" onAction="#saveAuthorDetail" text="Save">
+            <Button fx:id="buttonSaveAuthorDetail" mnemonicParsing="false" onAction="#saveAuthorDetail" text="Save">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

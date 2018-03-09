@@ -36,7 +36,7 @@ public class AuthorTableGateway {
 				authors.add(new Author(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getDate("dob").toLocalDate(), rs.getString("gender"), rs.getString("web_site")));
 			}
 		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getAuthors(");
+			logger.info("try/catch SQLException in getAuthors()");
 		} finally {
 			try {
 				if(rs != null)
@@ -68,7 +68,7 @@ public class AuthorTableGateway {
 			st.setInt(7, author.getAuthorID());
 			st.executeUpdate();
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in updateAuthor(");
+			logger.info("try/catch SQLException in updateAuthor()");
 			
 			throw sqlError;
 		} finally {
@@ -105,7 +105,7 @@ public class AuthorTableGateway {
 				insertIndex = rs.getInt(1);
 			return insertIndex;
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in insertAuthor(");
+			logger.info("try/catch SQLException in insertAuthor()");
 			
 			throw sqlError;
 		} finally {
@@ -133,7 +133,7 @@ public class AuthorTableGateway {
 			st.setInt(1, author.getAuthorID());
 			st.executeUpdate();
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in deleteAuthor(");
+			logger.info("try/catch SQLException in deleteAuthor()");
 			
 			throw sqlError;
 		} finally {

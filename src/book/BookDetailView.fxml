@@ -141,13 +141,23 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="saveBookDetailButton" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#saveBookDetail" text="Save" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <VBox.margin>
-            <Insets top="5.0" />
-         </VBox.margin>
-      </Button>
+      <HBox>
+         <children>
+            <Button fx:id="buttonSaveBookDetail" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#saveBookDetail" text="Save" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+            <HBox HBox.hgrow="ALWAYS" />
+            <Button fx:id="buttonViewAuditTrail" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#viewAuditTrail" text="View Audit Trail" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>

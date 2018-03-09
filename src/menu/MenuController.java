@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import app.Launcher;
+import audit_trail.AuditTrailController;
+import audit_trail.AuditTrailEntry;
 import author.Author;
 import author.AuthorDetailController;
 import author.AuthorListController;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -155,6 +158,19 @@ public class MenuController implements Initializable {
 			Launcher.stage.setTitle("Add New Book");
 		else
 			Launcher.stage.setTitle("Edit Book");
+		changeView(loader);
+	}
+	
+	public void loadAuditTrail(String title, List<AuditTrailEntry> list, Object auditObject) {
+		logger.info("calling loadAuditTrail()");
+		
+		AuditTrailController controller = new AuditTrailController(title, FXCollections.observableArrayList(list), auditObject);
+		URL fxmlFile = this.getClass().getResource("../audit_trail/AuditTrailView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		
+		Launcher.stage.setTitle("Audit Trail");
 		changeView(loader);
 	}
 	

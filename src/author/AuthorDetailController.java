@@ -23,7 +23,7 @@ public class AuthorDetailController implements Initializable {
 	@FXML private DatePicker datePickerAuthorDOB;
 	@FXML private TextField textFieldAuthorGender;
 	@FXML private TextField textFieldAuthorWebsite;
-	@FXML private Button saveAuthorDetailButton;
+	@FXML private Button buttonSaveAuthorDetail;
 	
 	private Author author;
 
