@@ -3,8 +3,9 @@ package book;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -214,10 +215,11 @@ public class BookTableGateway {
 			
 			if (!rs.next()) throw new Exception("Empty Audit Trail");
 			
+			rs.previous();
 			while(rs.next()) {
 				int tempID = rs.getInt("id");
 				rs.getInt("book_id");
-				LocalDate tempDateAdded = rs.getDate("date_added").toLocalDate();
+				Date tempDateAdded = new Date(rs.getTimestamp("date_added").getTime());
 				String tempMessage = rs.getString("entry_msg");
 				
 				auditTrail.add(new AuditTrailEntry(tempID, tempDateAdded, tempMessage));
@@ -238,6 +240,8 @@ public class BookTableGateway {
 				logger.info("try/catch/finally SQLException in getAuditTrail()");
 			}
 		}
+		
+		Arrays.toString(auditTrail.toArray());
 		
 		return auditTrail;
 	}

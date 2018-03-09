@@ -1,23 +1,23 @@
 package audit_trail;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class AuditTrailEntry {
 	private int auditID;
-	private SimpleObjectProperty<LocalDate> auditDateAdded;
+	private SimpleObjectProperty<Date> auditDateAdded;
 	private SimpleStringProperty auditMessage;
 	
 	public AuditTrailEntry() {
 		auditID = 0;
-		auditDateAdded = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+		auditDateAdded = new SimpleObjectProperty<Date>(new Date());
 		auditMessage = new SimpleStringProperty("");
 	}
 	
-	public AuditTrailEntry(int auditID, LocalDate auditDateAdded, String auditMessage) {
+	public AuditTrailEntry(int auditID, Date auditDateAdded, String auditMessage) {
 		this();
 		this.auditID = auditID;
 		this.auditDateAdded.set(auditDateAdded);
@@ -25,7 +25,7 @@ public class AuditTrailEntry {
 	}
 	
 	public String toString() {
-		return auditID + "\t" + getAuditDateAdded().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")) + "\t" + getAuditMessage();
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(getAuditDateAdded()) + "\t" + getAuditMessage();
 	}
 	
 	//Accessors
@@ -38,11 +38,11 @@ public class AuditTrailEntry {
 		this.auditID = auditID;
 	}
 	
-	public LocalDate getAuditDateAdded() {
+	public Date getAuditDateAdded() {
 		return auditDateAdded.get();
 	}
 	
-	public void setAuditDateAdded(LocalDate auditDateAdded) {
+	public void setAuditDateAdded(Date auditDateAdded) {
 		this.auditDateAdded.set(auditDateAdded);
 	}
 	
@@ -56,7 +56,7 @@ public class AuditTrailEntry {
 	
 	//Direct Getters
 	
-	public SimpleObjectProperty<LocalDate> auditDateAddedProperty() {
+	public SimpleObjectProperty<Date> auditDateAddedProperty() {
 		return auditDateAdded;
 	}
 	

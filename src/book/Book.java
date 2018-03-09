@@ -21,6 +21,12 @@ public class Book {
 	private SimpleStringProperty bookISBN;
 	private SimpleObjectProperty<LocalDate> bookDateAdded;
 	
+	private String title;
+	private String summary;
+	private int yearPublished;
+	private Publisher publisher;
+	private String isbn;
+	
 	public Book() {
 		bookID = 0;
 		bookTitle = new SimpleStringProperty("");
@@ -29,6 +35,12 @@ public class Book {
 		bookPublisher = new SimpleObjectProperty<Publisher>();
 		bookISBN = new SimpleStringProperty("");
 		bookDateAdded = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+		
+		title = "";
+		summary = "";
+		yearPublished = 0;
+		publisher = new Publisher();
+		isbn = "";
 	}
 	
 	public Book(int bookID, String bookTitle, String bookSummary, int bookYearPublished, Publisher bookPublisher, String bookISBN, LocalDate bookDateAdded) {
@@ -40,6 +52,12 @@ public class Book {
 		this.bookPublisher.set(bookPublisher);
 		this.bookISBN.set(bookISBN);
 		this.bookDateAdded.set(bookDateAdded);
+
+		title = bookTitle;
+		summary = bookSummary;
+		yearPublished = bookYearPublished;
+		publisher = bookPublisher;
+		isbn = bookISBN;
 	}
 	
 	public String toString() {
@@ -58,7 +76,7 @@ public class Book {
 			
 			throw invalid;
 		}
-		
+
 		setBookID(bookID);
 		setBookTitle(bookTitle);
 		setBookSummary(bookSummary);
@@ -70,6 +88,7 @@ public class Book {
 		if (bookID == 0) {
 			try {
 				setBookID(new BookTableGateway().insertBook(this));
+				new BookTableGateway().insertAuditTrailEntry(getBookID(), "Book inserted: "+getBookTitle());
 			} catch (SQLException sqlError) {
 				logger.info(sqlError);
 				
@@ -132,7 +151,15 @@ public class Book {
 		return bookTitle.get();
 	}
 	
-	public void setBookTitle(String bookTitle) {
+	public void setBookTitle(String bookTitle){
+		if (getBookID() != 0 && !title.equals(bookTitle)) {
+			try {
+				new BookTableGateway().insertAuditTrailEntry(getBookID(),"title changed from "+title+" to "+bookTitle);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setBookTitle(): "+error);
+			}
+		}
+		title = bookTitle;
 		this.bookTitle.set(bookTitle);
 	}
 	
@@ -141,6 +168,14 @@ public class Book {
 	}
 	
 	public void setBookSummary(String bookSummary) {
+		if (getBookID() != 0 && !summary.equals(bookSummary)) {
+			try {
+				new BookTableGateway().insertAuditTrailEntry(getBookID(),"summary changed from "+summary+" to "+bookSummary);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setBookSummary(): "+error); 
+			}
+		}
+		summary = bookSummary;
 		this.bookSummary.set(bookSummary);
 	}
 	
@@ -149,6 +184,14 @@ public class Book {
 	}
 	
 	public void setBookYearPublished(int bookYearPublished) {
+		if (getBookID() != 0 && yearPublished != bookYearPublished) {
+			try {
+				new BookTableGateway().insertAuditTrailEntry(getBookID(),"year_published changed from "+yearPublished+" to "+bookYearPublished);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setBookYearPublished(): "+error); 
+			}
+		}
+		yearPublished = bookYearPublished;
 		this.bookYearPublished.set(bookYearPublished);
 	}
 	
@@ -157,6 +200,14 @@ public class Book {
 	}
 	
 	public void setBookPublisher(Publisher bookPublisher) {
+		if (getBookID() != 0 && publisher != bookPublisher) {
+			try {
+				new BookTableGateway().insertAuditTrailEntry(getBookID(),"publisher changed from "+publisher+" to "+bookPublisher);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setBookPublisher(): "+error); 
+			}
+		}
+		publisher = bookPublisher;
 		this.bookPublisher.set(bookPublisher);
 	}
 	
@@ -165,6 +216,14 @@ public class Book {
 	}
 	
 	public void setBookISBN(String bookISBN) {
+		if (getBookID() != 0 && !isbn.equals(bookISBN)) {
+			try {
+				new BookTableGateway().insertAuditTrailEntry(getBookID(),"isbn changed from "+isbn+" to "+bookISBN);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setBookISBN(): "+error); 
+			}
+		}
+		isbn = bookISBN;
 		this.bookISBN.set(bookISBN);
 	}
 	
