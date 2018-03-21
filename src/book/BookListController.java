@@ -61,11 +61,11 @@ public class BookListController implements Initializable {
 		
 		try {
 			new BookTableGateway().deleteBook(listViewBooks.getSelectionModel().getSelectedItem());
-		} catch (SQLException invalid) {
+		} catch (SQLException sqlError) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("SQL Error");
 			alert.setHeaderText("There was a problem updating the database.");
-			alert.setContentText(invalid.toString());
+			alert.setContentText(sqlError.toString());
 		}
 		
 		listData = FXCollections.observableArrayList(new BookTableGateway().getBooks());
@@ -80,11 +80,11 @@ public class BookListController implements Initializable {
 				listData = FXCollections.observableArrayList(new BookTableGateway().getBooks());
 			else 
 				listData = FXCollections.observableArrayList(new BookTableGateway().searchBooks(textFieldSearchBooks.getText()));
-		} catch (SQLException invalid) {
+		} catch (SQLException sqlError) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("SQL Error");
 			alert.setHeaderText("There was a problem updating the database.");
-			alert.setContentText(invalid.toString());
+			alert.setContentText(sqlError.toString());
 		}
 		
 		listViewBooks.setItems(listData);

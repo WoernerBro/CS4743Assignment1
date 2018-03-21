@@ -58,11 +58,11 @@ public class AuthorListController implements Initializable {
 		
 		try {
 			new AuthorTableGateway().deleteAuthor(listViewAuthors.getSelectionModel().getSelectedItem());
-		} catch (SQLException invalid) {
+		} catch (SQLException sqlError) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("SQL Error");
 			alert.setHeaderText("There was a problem updating the database.");
-			alert.setContentText(invalid.toString());
+			alert.setContentText(sqlError.toString());
 		}
 		
 		listData = FXCollections.observableArrayList(new AuthorTableGateway().getAuthors());

@@ -29,6 +29,7 @@ public class BookDetailController implements Initializable {
 	@FXML private ComboBox<Publisher> comboBoxBookPublisher;
 	@FXML private TextField textFieldBookISBN;
 	@FXML private Button buttonSaveBookDetail;
+	@FXML private Button buttonViewAuditTrail;
 	
 	private Book book;
 	private List<Publisher> publishers;
@@ -72,11 +73,11 @@ public class BookDetailController implements Initializable {
 		}
 	}
 	
-	@FXML void viewAuditTrail() {
+	@FXML void viewAuditTrail(ActionEvent event) {
 		logger.info("viewAuditTrail() for " + book.getBookTitle());
 		
 		try {
-			menuController.loadAuditTrail(book.getBookTitle(), new BookTableGateway().getAuditTrail(book.getBookID()), book);
+			menuController.loadAuditTrail(book.getBookTitle(), new BookTableGateway().getAuditTrail(book.getBookID()), book, "BOOK");
 		} catch (Throwable error) {
 			logger.info(error);
 			

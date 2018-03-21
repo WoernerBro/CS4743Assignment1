@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import author.Author;
 import book.Book;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,14 +27,16 @@ public class AuditTrailController implements Initializable {
 	private ObservableList<AuditTrailEntry> listData;
 	private String auditSubject;
 	private Object auditObject;
+	private String auditType;
 	
-	public AuditTrailController(String auditSubject, ObservableList<AuditTrailEntry> audits, Object auditObject) {
+	public AuditTrailController(String auditSubject, ObservableList<AuditTrailEntry> audits, Object auditObject, String auditType) {
 		menuController = MenuController.getInstanceOfMenuController();
 		
 		listViewAuditTrail = new ListView<AuditTrailEntry>();
 		listData = audits;
 		this.auditSubject = auditSubject;
 		this.auditObject = auditObject;
+		this.auditType = auditType;
 	}
 	
 	@Override
@@ -47,6 +50,9 @@ public class AuditTrailController implements Initializable {
 	@FXML void leaveAuditTrail(ActionEvent event) {
 		logger.info("calling leaveAuditTrail()");
 		
-		menuController.loadBookDetail((Book) auditObject);
+		if (auditType.equals("BOOK"))
+			menuController.loadBookDetail((Book) auditObject);
+		if (auditType.equals("AUTHOR"))
+			menuController.loadAuthorDetail((Author) auditObject);
 	}
 }

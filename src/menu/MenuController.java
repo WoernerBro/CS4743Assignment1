@@ -54,10 +54,10 @@ public class MenuController implements Initializable {
 	private MenuController() {
 		try {
 			connectToDB();
-		} catch (IOException e) {
-			logger.info("try/catch IOException in constructor");
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in constructor");
+		} catch (IOException ioException) {
+			logger.info("try/catch IOException in constructor: "+ioException);
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in constructor: "+sqlError);
 		}
 	}
 	
@@ -161,10 +161,10 @@ public class MenuController implements Initializable {
 		changeView(loader);
 	}
 	
-	public void loadAuditTrail(String title, List<AuditTrailEntry> list, Object auditObject) {
+	public void loadAuditTrail(String title, List<AuditTrailEntry> list, Object auditObject, String auditType) {
 		logger.info("calling loadAuditTrail()");
 		
-		AuditTrailController controller = new AuditTrailController(title, FXCollections.observableArrayList(list), auditObject);
+		AuditTrailController controller = new AuditTrailController(title, FXCollections.observableArrayList(list), auditObject, auditType);
 		URL fxmlFile = this.getClass().getResource("../audit_trail/AuditTrailView.fxml");
 		FXMLLoader loader = new FXMLLoader(fxmlFile);
 		
@@ -181,8 +181,8 @@ public class MenuController implements Initializable {
 			Parent contentView = loader.load();
 			rootPane.setCenter(null);
 			rootPane.setCenter(contentView);
-		} catch (IOException e) {
-			logger.info("try/catch error in changeView()");
+		} catch (IOException ioException) {
+			logger.info("try/catch error in changeView(): "+ioException);
 		}
     }
 	

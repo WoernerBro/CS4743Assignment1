@@ -61,7 +61,7 @@ public class Book {
 	}
 	
 	public String toString() {
-		return bookID + "\t" + getBookTitle();
+		return getBookTitle();
 	}
 	
 	public void saveBook(int bookID, String bookTitle, String bookSummary, int bookYearPublished, Publisher bookPublisher, String bookISBN, LocalDate bookDateAdded) throws Throwable {
@@ -72,7 +72,7 @@ public class Book {
 			if (!validateBookYearPublished(bookYearPublished)) throw new Exception("Year Published must be greater than the current year");
 			if (!validateBookISBN(bookISBN)) throw new Exception("ISBN must have a length of 13 or less");
 		} catch (Exception invalid) {
-			logger.info("saveBook() failed");
+			logger.info("saveBook() failed: "+invalid);
 			
 			throw invalid;
 		}

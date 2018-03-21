@@ -34,16 +34,16 @@ public class PublisherTableGateway {
 			while(rs.next()) {
 				publishers.add(new Publisher(rs.getInt("id"), rs.getString("publisher_name")));
 			}
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getPublishers()");
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getPublishers(): "+sqlError);
 		} finally {
 			try {
 				if(rs != null)
 					rs.close();
 				if(st != null)
 					st.close();
-			} catch (SQLException e) {
-				logger.info("try/catch/finally SQLException in getPublishers()");
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getPublishers(): "+sqlError);
 			}
 		}
 		
@@ -66,16 +66,16 @@ public class PublisherTableGateway {
 			while(rs.next()) {
 				publisher = new Publisher(rs.getInt("id"), rs.getString("publisher_name"));
 			}
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getPublisherByID()");
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getPublisherByID(): "+sqlError);
 		} finally {
 			try {
 				if(rs != null)
 					rs.close();
 				if(st != null)
 					st.close();
-			} catch (SQLException e) {
-				logger.info("try/catch/finally SQLException in getPublisherByID()");
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getPublisherByID(): "+sqlError);
 			}
 		}
 		

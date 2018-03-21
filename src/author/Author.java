@@ -2,6 +2,7 @@ package author;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,13 @@ public class Author {
 	private SimpleObjectProperty<LocalDate> authorDOB;
 	private SimpleStringProperty authorGender;
 	private SimpleStringProperty authorWebsite;
+	private LocalDateTime authorLastModified;
+	
+	private String firstName;
+	private String lastName;
+	private LocalDate dateOfBirth;
+	private String gender;
+	private String website;
 	
 	public Author() {
 		authorID = 0;
@@ -26,9 +34,16 @@ public class Author {
 		authorDOB = new SimpleObjectProperty<LocalDate>(LocalDate.now());
 		authorGender = new SimpleStringProperty("");
 		authorWebsite = new SimpleStringProperty("");
+		authorLastModified = LocalDateTime.now();
+		
+		firstName = "";
+		lastName = "";
+		dateOfBirth = LocalDate.now();
+		gender = "";
+		website = "";
 	}
 	
-	public Author(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite) {
+	public Author(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite, LocalDateTime authorLastModified) {
 		this();
 		this.authorID = authorID;
 		this.authorFirstName.set(authorFirstName);
@@ -36,13 +51,20 @@ public class Author {
 		this.authorDOB.set(authorDOB);
 		this.authorGender.set(authorGender);
 		this.authorWebsite.set(authorWebsite);
+		this.authorLastModified = authorLastModified;
+		
+		firstName = authorFirstName;
+		lastName = authorLastName;
+		dateOfBirth = authorDOB;
+		gender = authorGender;
+		website = authorWebsite;
 	}
 	
 	public String toString() {
-		return authorID + "\t" + getAuthorFirstName() + " " + getAuthorLastName();
+		return getAuthorFirstName() + " " + getAuthorLastName();
 	}
 	
-	public void saveAuthor(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite) throws Throwable {
+	public void saveAuthor(int authorID, String authorFirstName, String authorLastName, LocalDate authorDOB, String authorGender, String authorWebsite, LocalDateTime authorLastModified) throws Throwable {
 		try {
 			if (!validateAuthorID(authorID)) throw new Exception("ID must be positive");
 			if (!validateAuthorFirstName(authorFirstName)) throw new Exception("First name must have a length of 1-100");
@@ -51,7 +73,7 @@ public class Author {
 			if (!validateAuthorGender(authorGender)) throw new Exception("Gender must be \"Male\", \"Female\", or \"Unknown\"");
 			if (!validateAuthorWebsite(authorWebsite)) throw new Exception("Website must have a length of 0-100");
 		} catch (Exception invalid) {
-			logger.info("saveAuthor() failed");
+			logger.info("saveAuthor() failed: "+invalid);
 			
 			throw invalid;
 		}
@@ -62,10 +84,12 @@ public class Author {
 		setAuthorDOB(authorDOB);
 		setAuthorGender(authorGender);
 		setAuthorWebsite(authorWebsite);
+		setAuthorLastModified(authorLastModified);
 		
 		if (authorID == 0) {
 			try {
 				setAuthorID(new AuthorTableGateway().insertAuthor(this));
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(), "Author inserted: "+getAuthorFirstName()+" "+getAuthorLastName());
 			} catch (SQLException sqlError) {
 				logger.info(sqlError);
 				
@@ -135,6 +159,14 @@ public class Author {
 	}
 	
 	public void setAuthorFirstName(String authorFirstName) {
+		if (getAuthorID() != 0 && !firstName.equals(authorFirstName)) {
+			try {
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(),"first name changed from "+firstName+" to "+authorFirstName);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setAuthorFirstName(): "+error);
+			}
+		}
+		firstName = authorFirstName;
 		this.authorFirstName.set(authorFirstName);
 	}
 	
@@ -143,6 +175,14 @@ public class Author {
 	}
 	
 	public void setAuthorLastName(String authorLastName) {
+		if (getAuthorID() != 0 && !lastName.equals(authorLastName)) {
+			try {
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(),"last name changed from "+lastName+" to "+authorLastName);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setAuthorLastName(): "+error);
+			}
+		}
+		lastName = authorLastName;
 		this.authorLastName.set(authorLastName);
 	}
 	
@@ -151,6 +191,14 @@ public class Author {
 	}
 	
 	public void setAuthorDOB(LocalDate authorDOB) {
+		if (getAuthorID() != 0 && !dateOfBirth.equals(authorDOB)) {
+			try {
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(),"date of birth changed from "+dateOfBirth+" to "+authorDOB);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setAuthorDOB(): "+error);
+			}
+		}
+		dateOfBirth = authorDOB;
 		this.authorDOB.set(authorDOB);
 	}
 	
@@ -159,6 +207,14 @@ public class Author {
 	}
 	
 	public void setAuthorGender(String authorGender) {
+		if (getAuthorID() != 0 && !gender.equals(authorGender)) {
+			try {
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(),"gender changed from "+gender+" to "+authorGender);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setAuthorGender(): "+error);
+			}
+		}
+		gender = authorGender;
 		this.authorGender.set(authorGender);
 	}
 	
@@ -167,7 +223,23 @@ public class Author {
 	}
 	
 	public void setAuthorWebsite(String authorWebsite) {
+		if (getAuthorID() != 0 && !website.equals(authorWebsite)) {
+			try {
+				new AuthorTableGateway().insertAuditTrailEntry(getAuthorID(),"web_site changed from "+website+" to "+authorWebsite);
+			} catch (Throwable error) {
+				logger.info("insertAuditTrailEntry() failed in setAuthorWebsite(): "+error);
+			}
+		}
+		website = authorWebsite;
 		this.authorWebsite.set(authorWebsite);
+	}
+	
+	public LocalDateTime getAuthorLastModified() {
+		return authorLastModified;
+	}
+	
+	public void setAuthorLastModified(LocalDateTime authorLastModified) {
+		this.authorLastModified = authorLastModified;
 	}
 	
 	//Direct Getters

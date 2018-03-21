@@ -7,118 +7,118 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox>
+      <HBox>
          <children>
-            <Label nodeOrientation="RIGHT_TO_LEFT" text="First Name" underline="true">
+            <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="90.0" text="First Name" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Label>
-            <Label nodeOrientation="RIGHT_TO_LEFT" text="Last Name" underline="true">
+            <TextField fx:id="textFieldAuthorFirstName" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="90.0" text="Last Name" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Label>
-            <Label nodeOrientation="RIGHT_TO_LEFT" text="Date of Birth" underline="true">
+            <TextField fx:id="textFieldAuthorLastName" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="90.0" text="Date of Birth" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Label>
-            <Label nodeOrientation="RIGHT_TO_LEFT" text="Gender" underline="true">
+            <DatePicker fx:id="datePickerAuthorDOB" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding></DatePicker>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="90.0" text="Gender" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Label>
-            <Label nodeOrientation="RIGHT_TO_LEFT" text="Website" underline="true">
+            <TextField fx:id="textFieldAuthorGender" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="90.0" text="Website" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Label>
+            <TextField fx:id="textFieldAuthorWebsite" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
             <Button fx:id="buttonSaveAuthorDetail" mnemonicParsing="false" onAction="#saveAuthorDetail" text="Save">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
+            </Button>
+            <HBox HBox.hgrow="ALWAYS" />
+            <Button fx:id="buttonViewAuditTrail" mnemonicParsing="false" onAction="#viewAuditTrail" text="View Audit Trail" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Button>
          </children>
-         <HBox.margin>
-            <Insets left="10.0" />
-         </HBox.margin>
-      </VBox>
-      <VBox>
-         <children>
-            <TextField fx:id="textFieldAuthorFirstName" nodeOrientation="LEFT_TO_RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="textFieldAuthorLastName" nodeOrientation="LEFT_TO_RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <DatePicker fx:id="datePickerAuthorDOB" prefHeight="30.0" prefWidth="160.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </DatePicker>
-            <TextField fx:id="textFieldAuthorGender" nodeOrientation="LEFT_TO_RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="textFieldAuthorWebsite" nodeOrientation="LEFT_TO_RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-         </children>
-         <HBox.margin>
-            <Insets left="5.0" />
-         </HBox.margin>
-      </VBox>
+      </HBox>
    </children>
-</HBox>
+</VBox>

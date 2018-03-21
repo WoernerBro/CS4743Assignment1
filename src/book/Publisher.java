@@ -19,7 +19,7 @@ public class Publisher {
 	}
 	
 	public String toString() {
-		return publisherID + "\t" + getPublisherName();
+		return getPublisherName();
 	}
 	
 	//Accessors

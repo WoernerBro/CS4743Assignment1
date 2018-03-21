@@ -37,16 +37,16 @@ public class BookTableGateway {
 			while(rs.next()) {
 				books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("summary"), rs.getInt("year_published"), new PublisherTableGateway().getPublisherByID(rs.getInt("publisher_id")), rs.getString("isbn"), rs.getDate("date_added").toLocalDate()));
 			}
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getBooks()");
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getBooks(): "+sqlError);
 		} finally {
 			try {
 				if(rs != null)
 					rs.close();
 				if(st != null)
 					st.close();
-			} catch (SQLException e) {
-				logger.info("try/catch/finally SQLException in getBooks()");
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getBooks(): "+sqlError);
 			}
 		}
 		
@@ -78,7 +78,7 @@ public class BookTableGateway {
 			st.setInt(6, book.getBookID());			
 			st.executeUpdate();
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in updateBook()");
+			logger.info("try/catch SQLException in updateBook(): "+sqlError);
 			
 			throw sqlError;
 		} finally {
@@ -86,7 +86,7 @@ public class BookTableGateway {
 				if(st != null)
 					st.close();
 			} catch (SQLException sqlError) {
-				logger.info("try/catch/finally SQLException in updateBook()");
+				logger.info("try/catch/finally SQLException in updateBook(): "+sqlError);
 				
 				throw sqlError;
 			}
@@ -124,7 +124,7 @@ public class BookTableGateway {
 				insertIndex = rs.getInt(1);
 			return insertIndex;
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in insertBook()");
+			logger.info("try/catch SQLException in insertBook(): "+sqlError);
 			
 			throw sqlError;
 		} finally {
@@ -134,7 +134,7 @@ public class BookTableGateway {
 				if(st != null)
 					st.close();
 			} catch (SQLException sqlError) {
-				logger.info("try/catch/finally SQLException in insertBook()");
+				logger.info("try/catch/finally SQLException in insertBook(): "+sqlError);
 				
 				throw sqlError;
 			}
@@ -152,7 +152,7 @@ public class BookTableGateway {
 			st.setInt(1, book.getBookID());
 			st.executeUpdate();
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in deleteBook()");
+			logger.info("try/catch SQLException in deleteBook(): "+sqlError);
 			
 			throw sqlError;
 		} finally {
@@ -160,7 +160,7 @@ public class BookTableGateway {
 				if(st != null)
 					st.close();
 			} catch (SQLException sqlError) {
-				logger.info("try/catch/finally SQLException in deleteBook()");
+				logger.info("try/catch/finally SQLException in deleteBook(): "+sqlError);
 				
 				throw sqlError;
 			}
@@ -184,16 +184,16 @@ public class BookTableGateway {
 			while(rs.next()) {
 				books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("summary"), rs.getInt("year_published"), new PublisherTableGateway().getPublisherByID(rs.getInt("publisher_id")), rs.getString("isbn"), rs.getDate("date_added").toLocalDate()));
 			}
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in searchBooks()");
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in searchBooks(): "+sqlError);
 		} finally {
 			try {
 				if(rs != null)
 					rs.close();
 				if(st != null)
 					st.close();
-			} catch (SQLException e) {
-				logger.info("try/catch/finally SQLException in searchBooks()");
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in searchBooks(): "+sqlError);
 			}
 		}
 		
@@ -224,8 +224,8 @@ public class BookTableGateway {
 				
 				auditTrail.add(new AuditTrailEntry(tempID, tempDateAdded, tempMessage));
 			}
-		} catch (SQLException e) {
-			logger.info("try/catch SQLException in getAuditTrail()");
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getAuditTrail(): "+sqlError);
 		} catch (Exception error) {
 			logger.info("getAuditTrail() failed");
 			
@@ -236,8 +236,8 @@ public class BookTableGateway {
 					rs.close();
 				if(st != null)
 					st.close();
-			} catch (SQLException e) {
-				logger.info("try/catch/finally SQLException in getAuditTrail()");
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getAuditTrail(): "+sqlError);
 			}
 		}
 		
@@ -259,7 +259,7 @@ public class BookTableGateway {
 			st.setString(2, auditMessage);
 			st.executeUpdate();
 		} catch (SQLException sqlError) {
-			logger.info("try/catch SQLException in insertAuditTrailEntry()");
+			logger.info("try/catch SQLException in insertAuditTrailEntry(): "+sqlError);
 			
 			throw sqlError;
 		} finally {
@@ -269,7 +269,7 @@ public class BookTableGateway {
 				if(st != null)
 					st.close();
 			} catch (SQLException sqlError) {
-				logger.info("try/catch/finally SQLException in insertAuditTrailEntry()");
+				logger.info("try/catch/finally SQLException in insertAuditTrailEntry(): "+sqlError);
 				
 				throw sqlError;
 			}
