@@ -2,10 +2,12 @@ package book;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import authorbook.AuthorBook;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -103,6 +105,10 @@ public class Book {
 				throw sqlError;
 			}
 		}
+	}
+	
+	public List<AuthorBook> getAuthors() {
+		return new BookTableGateway().getAuthorsForBook(bookID);
 	}
 	
 	//Validators

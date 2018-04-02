@@ -12,6 +12,8 @@ import author.Author;
 import author.AuthorDetailController;
 import author.AuthorListController;
 import author.AuthorTableGateway;
+import authorbook.AuthorBook;
+import authorbook.AuthorBookController;
 import book.Book;
 import book.BookDetailController;
 import book.BookListController;
@@ -171,6 +173,21 @@ public class MenuController implements Initializable {
 		loader.setController(controller);
 		
 		Launcher.stage.setTitle("Audit Trail");
+		changeView(loader);
+	}
+	
+	public void loadAuthorBook(String previousType, AuthorBook authorBook) {
+		logger.info("calling loadAddBookAuthor()");
+		
+		AuthorBookController controller = new AuthorBookController(previousType, authorBook);
+		URL fxmlFile = this.getClass().getResource("../authorBook/AuthorBookView.fxml");
+		FXMLLoader loader = new FXMLLoader(fxmlFile);
+		
+		loader.setController(controller);
+		if (authorBook.getNewRecord())
+			Launcher.stage.setTitle("Add " + previousType);
+		else
+			Launcher.stage.setTitle("Edit " + previousType);
 		changeView(loader);
 	}
 	

@@ -141,6 +141,38 @@
             </TextField>
          </children>
       </HBox>
+      <Label nodeOrientation="LEFT_TO_RIGHT" prefWidth="110.0" text="Author(s)" underline="true">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ListView fx:id="listViewBookAuthors" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <VBox>
+               <children>
+                  <Button fx:id="buttonAddAuthorBook" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAuthorBook" text="Add Author" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="buttonEditAuthorBook" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAuthorBook" text="Edit Author" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="buttonRemoveAuthorBook" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeAuthorBook" text="Remove Author" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
       <HBox>
          <children>
             <Button fx:id="buttonSaveBookDetail" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#saveBookDetail" text="Save" textAlignment="CENTER">

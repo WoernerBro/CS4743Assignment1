@@ -54,6 +54,37 @@ public class AuthorTableGateway {
 		return authors;
 	}
 	
+	public Author getAuthor(int authorID) {
+		logger.info("calling getAuthor()");
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Author author = null;
+		
+		try {
+			String query = "SELECT * FROM authorTable WHERE id=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, authorID);
+			rs = st.executeQuery();
+
+			rs.next();
+			author = new Author(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getDate("dob").toLocalDate(), rs.getString("gender"), rs.getString("web_site"), rs.getTimestamp("last_modified").toLocalDateTime());
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getAuthor(): "+sqlError);
+		} finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getAuthor(): "+sqlError);
+			}
+		}
+		
+		return author;
+	}
+	
 	public void updateAuthor(Author author) throws Throwable {
 		logger.info("calling updateAuthor()");
 		

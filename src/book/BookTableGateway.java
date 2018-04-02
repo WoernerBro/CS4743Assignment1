@@ -1,5 +1,6 @@
 package book;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import audit_trail.AuditTrailEntry;
+import author.Author;
+import author.AuthorTableGateway;
+import authorbook.AuthorBook;
 import menu.MenuController;
 
 public class BookTableGateway {
@@ -51,6 +55,37 @@ public class BookTableGateway {
 		}
 		
 		return books;
+	}
+	
+	public Book getBook(int bookID) {
+		logger.info("calling getBook()");
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Book book = null;
+		
+		try {
+			String query = "SELECT * FROM bookTable WHERE id=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, bookID);
+			rs = st.executeQuery();
+			
+			rs.next();
+			book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("summary"), rs.getInt("year_published"), new PublisherTableGateway().getPublisherByID(rs.getInt("publisher_id")), rs.getString("isbn"), rs.getDate("date_added").toLocalDate());
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getBook(): "+sqlError);
+		} finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getBook(): "+sqlError);
+			}
+		}
+		
+		return book;
 	}
 	
 	public void updateBook(Book book) throws Throwable {
@@ -274,5 +309,41 @@ public class BookTableGateway {
 				throw sqlError;
 			}
 		}
+	}
+	
+	public List<AuthorBook> getAuthorsForBook(int bookID) {
+		logger.info("calling getAuthorsForBook()");
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<AuthorBook> authors = new ArrayList<AuthorBook>();
+		
+		try {
+			String query = "SELECT * FROM author_book WHERE book_id=?";
+			st = menuController.getDBConnection().prepareStatement(query);
+			st.setInt(1, bookID);
+			rs = st.executeQuery();
+			
+			while(rs.next()) {
+				Author author = new AuthorTableGateway().getAuthor(rs.getInt("author_id"));
+				Book book = new BookTableGateway().getBook(rs.getInt("book_id"));
+				float royalty = rs.getBigDecimal("royalty").multiply(new BigDecimal(100)).floatValue();
+				rs.getTimestamp("last_modified");
+				authors.add(new AuthorBook(author, book, royalty, false));
+			}
+		} catch (SQLException sqlError) {
+			logger.info("try/catch SQLException in getAuthorsForBook(): "+sqlError);
+		} finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if(st != null)
+					st.close();
+			} catch (SQLException sqlError) {
+				logger.info("try/catch/finally SQLException in getAuthorsForBook(): "+sqlError);
+			}
+		}
+		
+		return authors;
 	}
 }
